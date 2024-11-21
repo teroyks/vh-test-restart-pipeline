@@ -1,0 +1,37 @@
+- step:
+    name: start-pipeline
+    image: python:3.13-slim
+    command:
+      - pip install -r requirements.txt
+      - python ./start.py
+    parameters:
+      - name: count
+        default: 0
+        optional: false
+        type: integer
+- step:
+    name: process
+    image: python:3.13-slim
+    command:
+      - pip install -r requirements.txt
+      - python ./process.py {parameters}
+    parameters:
+      - name: count
+        default: 0
+        optional: false
+        type: integer
+- pipeline:
+    name: restart
+    nodes:
+      - name: start-pipeline
+        step: start-pipeline
+        type: execution
+      - name: process-and-restart
+        step: process
+        type: execution
+    parameters:
+      - name: count
+        targets:
+          - start-pipeline.parameters.count
+    edges:
+      - [start-pipeline.parameter.count, process-and-restart.parameter.count]
