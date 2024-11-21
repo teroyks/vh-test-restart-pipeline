@@ -7,7 +7,7 @@ local-start count='1':
 # parses the payload from 'payload.json'
 # and outputs to stdout
 local-restart:
-    python webhook-entry.py
+    python start.py
 
 
 # run the process script locally
