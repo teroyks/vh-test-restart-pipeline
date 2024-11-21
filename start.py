@@ -7,10 +7,12 @@ Parses two inputs and passes them on to the next step.
 
 import valohai
 
+# Parameters are used to initially start the pipeline.
 default_parameters = {
     "count": 0,
     # "trigger": "https://valohai.com/webhooks/1234567890",
 }
+
 
 valohai.prepare(
     step="start-pipeline",
